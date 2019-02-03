@@ -13,21 +13,47 @@ class App extends React.Component {
 
   }
 
+
+  func (err) {
+    if (err) {
+      throw ("erororor");
+    } else {
+      console.log('stuff');
+    }
+  }
   search (term) {
     console.log(`${term} was searched`);
     // TODO
-    $.post('/repos', {
-      userName: term
-    }, function (err) {
-      console.log("yo");
-      if (err) {
-        throw('error!!!!!!!!!');
-      } else {
-        return;
-      }
-    })
+    // $.post('/repos', JSON.stringify({
+    //   data: "term"
+    // }), function (err) {
+    //   console.log("uo");
+    //   if (err) {
+    //     throw('error!!!!!!!!!');
+    //   } else {
+    //     return;
+    //   }
+    // })
+    $.post({
+      url: '/repos',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({"stuff": "morestuff"}),
+      success: () => (this.func(null)),
+      error: (err) => (this.func(err))
+    })    
   }
 
+
+//   $.post({
+//     url: '/repos',
+//     type: 'POST',
+//     contentType: 'application/json',
+//     data: JSON.stringify(term),
+//     success: () => (console.log("ox")),
+//     error: (err) => (console.log("not Ox"))
+//   })
+// }
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
